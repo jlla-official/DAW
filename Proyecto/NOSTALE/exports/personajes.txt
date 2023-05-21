@@ -1,2 +1,0 @@
-[Id : 14] [IdUsuario : 2] [Slot : 2] [Nombre : Jorge] [Genero : Masculino] [Tipo de pelo : B] [ColorPeinado : Blanco]
-[Id : 15] [IdUsuario : 2] [Slot : 1] [Nombre : Oksana] [Genero : Masculino] [Tipo de pelo : A] [ColorPeinado : Rosa]

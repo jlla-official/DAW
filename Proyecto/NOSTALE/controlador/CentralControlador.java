@@ -33,7 +33,7 @@ public class CentralControlador {
 			public void run() {
 				
 				try {
-					Login login = new Login();
+					new Login();
 				} catch (Exception e) {
 					new PanelDeInformacion(e.getMessage());
 					System.out.println(e.getMessage());

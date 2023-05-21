@@ -7,17 +7,19 @@ public class Cuenta {
 	private String contrasena;
 	private String email;
 	private int rol;
+	private boolean banned = false;
 	
 	
 	public Cuenta() {}
 
 
-	public Cuenta(int id, String usuario, String contrasena, String email, int rol) {
+	public Cuenta(int id, String usuario, String contrasena, String email, int rol, boolean banned) {
 		this.id = id;
 		this.usuario = usuario;
 		this.contrasena = contrasena;
 		this.email = email;
 		this.rol = rol;
+		this.banned = banned;
 	}
 
 
@@ -70,7 +72,19 @@ public class Cuenta {
 		this.rol = rol;
 	}
 
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+
 	
-	
+	public String recogerDatos() {
+		return "[Id : " + this.id + "] [Usuario : " + this.usuario + "] [Contraseña : " +  this.contrasena + "] [Rol : " + this.rol +"] [Banned : " + this.banned + "]";
+	}
 
 }

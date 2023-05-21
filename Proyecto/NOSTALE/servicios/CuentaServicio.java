@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modelo.Cuenta;
+import modelo.Personaje;
 
 public class CuentaServicio {
 	
@@ -13,7 +14,6 @@ public class CuentaServicio {
 		ConexionBDServicio.ejecutarSentencia(sql);
 		
 	}
-	
 	
 	public Cuenta getCuenta(String usuario, String contrasena) throws Exception  {
 		
@@ -27,8 +27,9 @@ public class CuentaServicio {
 					String contrasenaBD = resultadoConsulta.getString("contrasena");
 					String emailBD = resultadoConsulta.getString("email");
 					int rolBD = resultadoConsulta.getInt("rol");
+					boolean bannedBD = resultadoConsulta.getBoolean("Banned");
 					
-					return new Cuenta(idUsuarioBD, usuarioBD, contrasenaBD, emailBD, rolBD);
+					return new Cuenta(idUsuarioBD, usuarioBD, contrasenaBD, emailBD, rolBD, bannedBD);
 					
 				}
 				
@@ -51,5 +52,64 @@ public class CuentaServicio {
 	
 	}
 	
+	public void banearCuenta(String usuario) throws SQLException {
+		String sql = "UPDATE CUENTA SET Banned="+1+ " WHERE Usuario=\""+usuario+"\";";
+		ConexionBDServicio.ejecutarSentencia(sql);
+	}
+	
+	public void desbanearCuenta(String usuario) throws SQLException {
+		String sql = "UPDATE CUENTA SET Banned="+0+ " WHERE Usuario=\""+usuario+"\";";
+		ConexionBDServicio.ejecutarSentencia(sql);
+	}
+	
+	public String listarCuentasBD() throws SQLException{
+		
+		String cuentas = "";
+		
+		String sql = "SELECT * FROM cuenta;";
+		ResultSet resultado = ConexionBDServicio.ejecutarConsulta(sql);
+		
+			while(resultado.next()) {
+				
+				int idBD = resultado.getInt("Id");
+				String usuarioBD = resultado.getString("Usuario");
+				String contrasenaBD = resultado.getString("Contrasena");
+				String emailBD = resultado.getString("Email");
+				int rolBD = resultado.getInt("Rol");
+				boolean bannedBD = resultado.getBoolean("Banned");
+				
+				Cuenta cuenta = new Cuenta(idBD, usuarioBD, contrasenaBD, emailBD, rolBD, bannedBD);
+				
+				cuentas += cuenta.recogerDatos() + "\n";
+				
+			}
+		
+		return cuentas;
+	}
+	
+public String listarCuentasBaneadasBD() throws SQLException{
+		
+		String cuentas = "";
+		
+		String sql = "SELECT * FROM cuenta WHERE Banned=1;";
+		ResultSet resultado = ConexionBDServicio.ejecutarConsulta(sql);
+		
+			while(resultado.next()) {
+				
+				int idBD = resultado.getInt("Id");
+				String usuarioBD = resultado.getString("Usuario");
+				String contrasenaBD = resultado.getString("Contrasena");
+				String emailBD = resultado.getString("Email");
+				int rolBD = resultado.getInt("Rol");
+				boolean bannedBD = resultado.getBoolean("Banned");
+				
+				Cuenta cuenta = new Cuenta(idBD, usuarioBD, contrasenaBD, emailBD, rolBD, bannedBD);
+				
+				cuentas += cuenta.recogerDatos() + "\n";
+				
+			}
+		
+		return cuentas;
+	}
 	
 }

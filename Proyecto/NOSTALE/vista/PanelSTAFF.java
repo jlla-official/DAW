@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import controlador.CentralControlador;
+import controlador.CuentaControlador;
 import controlador.PersonajeControlador;
 import modelo.Cuenta;
 import modelo.Personaje;
@@ -32,12 +33,13 @@ public class PanelSTAFF extends JFrame {
 	private JPanel contentPane;
 	private PersonajeControlador personajeControlador = new PersonajeControlador();
 	private CentralControlador controlador = new CentralControlador();
+	private CuentaControlador cuentaControlador = new CuentaControlador();
 	
 
 	public PanelSTAFF(Cuenta cuenta) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 476, 300);
+		setBounds(100, 100, 476, 451);
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -155,7 +157,7 @@ public class PanelSTAFF extends JFrame {
 		botonImportarPersonajes.setBounds(90, 134, 293, 23);
 		contentPane.add(botonImportarPersonajes);
 		botonCerrar.setBorder(null);
-		botonCerrar.setBounds(192, 252, 89, 23);
+		botonCerrar.setBounds(191, 417, 89, 23);
 		contentPane.add(botonCerrar);
 		
 		JLabel rolBD = new JLabel("");
@@ -192,6 +194,91 @@ public class PanelSTAFF extends JFrame {
         });
 		
 		contentPane.add(simboloAyuda1);
+		
+		JButton botonExportarCuentas = new JButton("Exportar todas las cuentas a txt");
+		botonExportarCuentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String cuentas = cuentaControlador.listarCuentasBD();
+				
+				String mensajeError = new CentralControlador().crearYEscribirEnArchivoTXT(cuentas , "cuentas");
+				
+				if(mensajeError == null) {
+					
+					new MensajeEmergente("¡Cuentas exportadas con éxito!");
+					
+				} else {
+					
+					new PanelDeInformacion(mensajeError);
+					new MensajeEmergente("Error en la exportación de cuentas");
+					
+				}
+			}
+		});
+		botonExportarCuentas.setForeground(Color.WHITE);
+		botonExportarCuentas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		botonExportarCuentas.setBorder(null);
+		botonExportarCuentas.setBackground(new Color(0, 128, 255));
+		botonExportarCuentas.setBounds(90, 180, 292, 23);
+		contentPane.add(botonExportarCuentas);
+		
+		JButton botonExportarCuentasBaneadas = new JButton("Exportar todas las cuentas baneadas a txt");
+		botonExportarCuentasBaneadas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				String cuentas = cuentaControlador.listarCuentasBaneadasBD();
+				
+				String mensajeError = new CentralControlador().crearYEscribirEnArchivoTXT(cuentas , "cuentas");
+				
+				if(mensajeError == null) {
+					
+					new MensajeEmergente("¡Cuentas baneadas exportadas con éxito!");
+					
+				} else {
+					
+					new PanelDeInformacion(mensajeError);
+					new MensajeEmergente("Error en la exportación de cuentas");
+					
+				}
+				
+			}
+		});
+		botonExportarCuentasBaneadas.setForeground(Color.WHITE);
+		botonExportarCuentasBaneadas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		botonExportarCuentasBaneadas.setBorder(null);
+		botonExportarCuentasBaneadas.setBackground(new Color(0, 128, 255));
+		botonExportarCuentasBaneadas.setBounds(90, 228, 292, 23);
+		contentPane.add(botonExportarCuentasBaneadas);
+		
+		JButton botonBanearCuenta = new JButton("Banear cuenta");
+		botonBanearCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				new BanearCuenta();
+				
+			}
+		});
+		botonBanearCuenta.setForeground(Color.WHITE);
+		botonBanearCuenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		botonBanearCuenta.setBorder(null);
+		botonBanearCuenta.setBackground(new Color(0, 128, 255));
+		botonBanearCuenta.setBounds(90, 279, 292, 23);
+		contentPane.add(botonBanearCuenta);
+		
+		JButton botonDesbanearCuenta = new JButton("Desbanear cuenta");
+		botonDesbanearCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				new DesbanearCuenta();
+			
+			}
+		});
+		botonDesbanearCuenta.setForeground(Color.WHITE);
+		botonDesbanearCuenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		botonDesbanearCuenta.setBorder(null);
+		botonDesbanearCuenta.setBackground(new Color(0, 128, 255));
+		botonDesbanearCuenta.setBounds(90, 325, 292, 23);
+		contentPane.add(botonDesbanearCuenta);
 		
 		
 		

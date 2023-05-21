@@ -81,9 +81,12 @@ public class Login extends JFrame {
             	
             	Cuenta cuenta = new CuentaControlador().login(usuarioLogin, contrasenaLogin);
             	
-            	if(cuenta != null) {
+            	if(cuenta != null && !cuenta.isBanned()) {
             		new SeleccionPersonaje(cuenta);
             		dispose();
+            	} 
+            	else if(cuenta.isBanned()) {
+            		new MensajeEmergente("Su cuenta ha sido suspendida");
             	} else {
             		new MensajeEmergente("Usuario o contraseña incorrecta");
             	}

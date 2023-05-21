@@ -7,6 +7,7 @@ import modelo.*;
 import servicios.ConexionBDServicio;
 import servicios.CuentaServicio;
 import vista.MensajeEmergente;
+import vista.PanelDeInformacion;
 import vista.SeleccionPersonaje;
 
 public class CuentaControlador {
@@ -44,7 +45,7 @@ public class CuentaControlador {
 			
 		} catch (Exception error) {
 			new MensajeEmergente(error.getMessage());
-			System.out.println(error.getMessage());
+			error.printStackTrace();
 			return null;
 		}
 	
@@ -72,6 +73,49 @@ public class CuentaControlador {
 			return e.getMessage();
 		}
 	
+	}
+
+	
+	public String listarCuentasBD(){
+			
+			try {
+				return new CuentaServicio().listarCuentasBD();
+			} catch (SQLException e) {
+				return e.getMessage();
+				
+			}
+	}
+	
+	public String listarCuentasBaneadasBD(){
+		
+		try {
+			return new CuentaServicio().listarCuentasBaneadasBD();
+		} catch (SQLException e) {
+			return e.getMessage();
+			
+		}
+	}
+	
+	public String banearCuenta(String usuario) {
+		
+		try {
+			new CuentaServicio().banearCuenta(usuario);
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+	
+	public String desbanearCuenta(String usuario) {
+		
+		try {
+			new CuentaServicio().desbanearCuenta(usuario);
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
 
 	

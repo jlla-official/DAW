@@ -1,2 +1,0 @@
-[Id : 2] [IdUsuario : 2] [Slot : 1] [Nombre : Excesive] [Genero : Masculino] [Tipo de pelo : B] [ColorPeinado : Negro]
-[Id : 3] [IdUsuario : 2] [Slot : 2] [Nombre : Nati] [Genero : Femenino] [Tipo de pelo : A] [ColorPeinado : Púrpura]
